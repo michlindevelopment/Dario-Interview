@@ -31,16 +31,6 @@ class MainActivity : AppCompatActivity() {
         )
     }
 
-    /* private fun loadData() {
-
-         compositeDisposable?.add(
-             ApiClient.getClient.getMovies("")
-                 .observeOn(AndroidSchedulers.mainThread())
-                 .subscribeOn(Schedulers.io())
-                 .subscribe(this::handleResponse)
-         )
-     }*/
-
     private fun handleResponse(movieList: ObjectsCast) {
         Log.d("DTAG", "")
 

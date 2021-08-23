@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/user_flow_graph"
+    app:startDestination="@id/blankFragmentA">
+
+    <fragment
+        android:id="@+id/blankFragmentA"
+        android:name="com.michlindev.dariointerview.BlankFragmentA"
+        android:label="fragment_blank_a"
+        tools:layout="@layout/fragment_blank_a" >
+        <action
+            android:id="@+id/action_blankFragmentA_to_blankFragmentB"
+            app:destination="@id/blankFragmentB"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/blankFragmentB"
+        android:name="com.michlindev.dariointerview.BlankFragmentB"
+        android:label="fragment_blank_b"
+        tools:layout="@layout/fragment_blank_b" />
+</navigation>

@@ -1,14 +1,19 @@
 package com.michlindev.dariointerview
 
+import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
 data class ObjectsCast(
     var totalResults: Int,
-    val Search: List<Movie>
+    @SerializedName("Response") var response: Boolean,
+    @SerializedName("Search") val searchResult: List<Movie>
 ) : Serializable
 
 
 data class Movie(
-    var Title: String,
-    var year: String,
+    @SerializedName("Title") var title: String,
+    @SerializedName("Year") var year: String,
+    var imdbID: String,
+    @SerializedName("Type") var type: String,
+    @SerializedName("Poster") var posterUrl: String,
 ) : Serializable
