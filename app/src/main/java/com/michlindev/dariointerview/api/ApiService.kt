@@ -1,6 +1,5 @@
 package com.michlindev.dariointerview.api
 
-import com.michlindev.dariointerview.Movie
 import com.michlindev.dariointerview.ObjectsCast
 import io.reactivex.Observable
 import retrofit2.http.GET

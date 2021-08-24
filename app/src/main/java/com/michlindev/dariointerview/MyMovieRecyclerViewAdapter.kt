@@ -2,12 +2,10 @@ package com.michlindev.dariointerview
 
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.michlindev.dariointerview.databinding.FragmentItemBinding
 
 
 class MyMovieRecyclerViewAdapter(private val values: ArrayList<Movie>, private val itemClickListener: OnItemClickListener) :
@@ -16,40 +14,26 @@ class MyMovieRecyclerViewAdapter(private val values: ArrayList<Movie>, private v
     lateinit var context: Context
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.fragment_item, parent, false)
+        val itemBinding = FragmentItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         context = parent.context
-        return ViewHolder(view)
+        return ViewHolder(itemBinding)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-
         val item = values[position]
-
-        //Add item click listener
-        holder.bind(position, itemClickListener)
-        holder.contentView.text = item.title
-
-        Glide.with(context).load(item.posterUrl).into(holder.imageView)
-
+        holder.bind(item,position,context,itemClickListener)
     }
 
     override fun getItemCount(): Int = values.size
 
-    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    class ViewHolder(private val itemBinding: FragmentItemBinding) : RecyclerView.ViewHolder(itemBinding.root) {
+        fun bind(movie: Movie, position: Int, context:Context, clickListener: OnItemClickListener) {
 
-        val contentView: TextView = view.findViewById(R.id.textViewMovieName)
-        val imageView: ImageView = view.findViewById(R.id.imageViewMovieIcon)
-
-
-        fun bind(position: Int, clickListener: OnItemClickListener) {
+            Glide.with(context).load(movie.posterUrl).into(itemBinding.imageViewMovieIcon)
+            itemBinding.textViewMovieName.text = movie.title
             itemView.setOnClickListener {
                 clickListener.onItemClicked(position)
             }
-
-        }
-
-        override fun toString(): String {
-            return super.toString() + " '" + contentView.text + "'"
         }
     }
 }

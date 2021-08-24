@@ -1,14 +1,24 @@
 package com.michlindev.dariointerview
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-
 
 
 class SharedViewModel : ViewModel() {
 
-    var movieList = ArrayList<Movie>()
+    companion object{
+        enum class Selection {
+            SEARCH, FAVORITES
+        }
+    }
 
+    var movieList = ArrayList<Movie>()
+    var menuSwitch = SingleLiveEvent<Selection>()
+    var currentState = Selection.SEARCH
+
+    fun setMenu(state: Selection) {
+        menuSwitch.postValue(state)
+        currentState = state
+    }
 
     /*var networkConnection = MutableLiveData(GenUtils.Connection.NO_CONNECTION)
     var activation = MutableLiveData(ActiveStatus.UNRECOGNIZED)

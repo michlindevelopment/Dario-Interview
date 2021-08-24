@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/blankFragmentA"
-        android:name="com.michlindev.dariointerview.BlankFragmentA"
+        android:name="com.michlindev.dariointerview.MovieListFragment"
         android:label="fragment_blank_a"
-        tools:layout="@layout/fragment_blank_a" >
+        tools:layout="@layout/fragment_movie_list" >
         <action
             android:id="@+id/action_blankFragmentA_to_blankFragmentB"
             app:destination="@id/blankFragmentB"
@@ -18,9 +18,9 @@
     </fragment>
     <fragment
         android:id="@+id/blankFragmentB"
-        android:name="com.michlindev.dariointerview.BlankFragmentB"
+        android:name="com.michlindev.dariointerview.SingleMovieFragment"
         android:label="fragment_blank_b"
-        tools:layout="@layout/fragment_blank_b" >
+        tools:layout="@layout/fragment_single_movie" >
 
         <argument
             android:name="myArg"
