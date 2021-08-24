@@ -10,9 +10,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
-import com.michlindev.dariointerview.viewmodel.SharedViewModel
 import com.michlindev.dariointerview.database.DataBaseHelper
 import com.michlindev.dariointerview.databinding.FragmentSingleMovieBinding
+import com.michlindev.dariointerview.viewmodel.SharedViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext

@@ -12,7 +12,7 @@ import com.michlindev.dariointerview.databinding.FragmentItemBinding
 class MovieListRecyclerViewAdapter(private val values: ArrayList<Movie>, private val itemClickListener: OnItemClickListener) :
     RecyclerView.Adapter<MovieListRecyclerViewAdapter.ViewHolder>() {
 
-    lateinit var context: Context
+    private lateinit var context: Context
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val itemBinding = FragmentItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)

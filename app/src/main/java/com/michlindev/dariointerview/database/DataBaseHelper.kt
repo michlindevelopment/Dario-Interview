@@ -1,6 +1,5 @@
 package com.michlindev.dariointerview.database
 
-import android.content.Context
 import com.michlindev.dariointerview.Movie
 import com.michlindev.dariointerview.MoviesApp
 import kotlinx.coroutines.*
@@ -8,7 +7,7 @@ import kotlinx.coroutines.*
 
 object DataBaseHelper {
 
-    var db: AppDatabase = AppDatabase(MoviesApp.appContext)
+    private var db: AppDatabase = AppDatabase(MoviesApp.appContext)
 
     //Add single movie to DB
     suspend fun addMovieToDB(movie: Movie) = withContext(Dispatchers.IO) {

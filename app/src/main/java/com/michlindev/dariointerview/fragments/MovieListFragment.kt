@@ -11,7 +11,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.michlindev.dariointerview.*
+import com.michlindev.dariointerview.Movie
+import com.michlindev.dariointerview.ObjectsCast
 import com.michlindev.dariointerview.api.ApiClient
 import com.michlindev.dariointerview.database.DataBaseHelper
 import com.michlindev.dariointerview.databinding.FragmentMovieListBinding
@@ -88,7 +89,7 @@ class MovieListFragment : Fragment() {
         binding.recyclerViewList.adapter = MovieListRecyclerViewAdapter(sharedViewModel.movieList, object : OnItemClickListener {
             override fun onItemClicked(position: Int) {
 
-                val action = MovieListFragmentDirections.actionBlankFragmentAToBlankFragmentB()
+                val action = MovieListFragmentDirections.actionMovieListItemClick()
                 action.myArg = position
                 findNavController().navigate(action)
             }

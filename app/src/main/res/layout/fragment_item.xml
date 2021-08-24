@@ -13,7 +13,8 @@
         android:layout_width="70dp"
         android:layout_height="70dp"
         tools:srcCompat="@tools:sample/avatars"
-        android:scaleType="centerCrop"/>
+        android:scaleType="centerCrop"
+        android:contentDescription="TODO" />
 
     <TextView
         android:id="@+id/textViewMovieName"
