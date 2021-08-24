@@ -11,6 +11,15 @@ import com.michlindev.dariointerview.databinding.FragmentBlankABinding
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import android.text.Editable
+
+import android.text.TextWatcher
+import androidx.core.os.bundleOf
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import com.michlindev.dariointerview.BlankFragmentADirections.ActionBlankFragmentAToBlankFragmentB
+import java.text.FieldPosition
+
 
 class BlankFragmentA : Fragment() {
 
@@ -21,7 +30,8 @@ class BlankFragmentA : Fragment() {
 
     private var _binding: FragmentBlankABinding? = null
     private val binding get() = _binding!!
-    val movieList = arrayListOf<Movie>()
+    //private val movieList = arrayListOf<Movie>()
+    private lateinit var sharedViewModel: SharedViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,38 +50,60 @@ class BlankFragmentA : Fragment() {
         /*binding.buttonTest.setOnClickListener {
             findNavController().navigate(R.id.action_blankFragmentA_to_blankFragmentB)
         }*/
-        //compositeDisposable?.clear()
+
+        sharedViewModel = ViewModelProvider(requireActivity()).get(SharedViewModel::class.java)
+
+        binding.editText.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                getMovies(s.toString())
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        })
+
+        getMovies("love")
+
+        //val movieList = arrayListOf<Movie>()
+        binding.recyclerViewList.adapter = MyMovieRecyclerViewAdapter(sharedViewModel.movieList, object : OnItemClickListener {
+            override fun onItemClicked(position: Int) {
+
+//                   var bundle = bundleOf(1 to Int)
+                //val bundle = bundleOf("myArg" to 35)
+
+                val action = BlankFragmentADirections.actionBlankFragmentAToBlankFragmentB()
+                action.myArg = position
+
+
+                findNavController().navigate(action)
+
+
+
+            }
+        })
+    }
+
+    fun getMovies(query: String) {
+
+        compositeDisposable?.clear()
         compositeDisposable?.add(
-            ApiClient.getClient.search("love")
+            ApiClient.getClient.search(query)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(this::handleResponse)
         )
-
-        //val movieList = arrayListOf<Movie>()
-        binding.recyclerViewList.adapter = MyMovieRecyclerViewAdapter(movieList, object : OnItemClickListener {
-            override fun onItemClicked(item: Int) {
-
-               /* val myViewModel = ViewModelProvider(activity!!).get(ViewModel::class.java)
-                myViewModel.movie = moviesArrayList[item]
-
-                //Start details fragment
-                val fragmentTransaction = requireActivity().supportFragmentManager.beginTransaction()
-                fragmentTransaction.replace(R.id.container, DetailsFragment())
-                fragmentTransaction.addToBackStack(null)
-                fragmentTransaction.commit()*/
-            }
-        })
     }
 
     @SuppressLint("NotifyDataSetChanged")
     private fun handleResponse(resultObject: ObjectsCast) {
 
-        movieList.clear()
-        movieList.addAll(resultObject.searchResult)
+        sharedViewModel.movieList.clear()
+        //movieList.clear()
+        if (resultObject.response) {
+            //movieList.addAll(resultObject.searchResult)
+            sharedViewModel.movieList.addAll(resultObject.searchResult)
+        }
         binding.recyclerViewList.adapter?.notifyDataSetChanged()
-
-
     }
 
 

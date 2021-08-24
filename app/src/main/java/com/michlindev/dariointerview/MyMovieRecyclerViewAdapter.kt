@@ -31,10 +31,6 @@ class MyMovieRecyclerViewAdapter(private val values: ArrayList<Movie>, private v
 
         Glide.with(context).load(item.posterUrl).into(holder.imageView)
 
-        //Load Image
-        /*Picasso.with(context).load(item.image)
-           .placeholder(R.drawable.placeholder)
-            .into(holder.imageView)*/
     }
 
     override fun getItemCount(): Int = values.size
@@ -49,6 +45,7 @@ class MyMovieRecyclerViewAdapter(private val values: ArrayList<Movie>, private v
             itemView.setOnClickListener {
                 clickListener.onItemClicked(position)
             }
+
         }
 
         override fun toString(): String {
@@ -58,7 +55,7 @@ class MyMovieRecyclerViewAdapter(private val values: ArrayList<Movie>, private v
 }
 
 interface OnItemClickListener {
-    fun onItemClicked(item: Int)
+    fun onItemClicked(position: Int)
 }
 
 

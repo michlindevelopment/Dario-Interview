@@ -10,35 +10,35 @@ import io.reactivex.schedulers.Schedulers
 
 class MainActivity : AppCompatActivity() {
 
-    companion object {
+    /*companion object {
         @JvmStatic
         var compositeDisposable: CompositeDisposable? = null
-    }
+    }*/
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        compositeDisposable = CompositeDisposable()
+        //compositeDisposable = CompositeDisposable()
 
 
 
-        compositeDisposable?.add(
+        /*compositeDisposable?.add(
             ApiClient.getClient.search("love")
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(this::handleResponse)
-        )
+        )*/
     }
 
-    private fun handleResponse(movieList: ObjectsCast) {
+   /* private fun handleResponse(movieList: ObjectsCast) {
         Log.d("DTAG", "")
 
 
-    }
+    }*/
 
-    override fun onDestroy() {
+   /* override fun onDestroy() {
         super.onDestroy()
         compositeDisposable?.clear()
-    }
+    }*/
 }
