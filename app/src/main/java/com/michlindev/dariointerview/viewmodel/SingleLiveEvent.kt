@@ -1,4 +1,4 @@
-package com.michlindev.dariointerview
+package com.michlindev.dariointerview.viewmodel
 
 import android.util.Log
 import androidx.annotation.MainThread

@@ -1,4 +1,4 @@
-package com.michlindev.dariointerview
+package com.michlindev.dariointerview.fragments
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -11,9 +11,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.michlindev.dariointerview.*
 import com.michlindev.dariointerview.api.ApiClient
 import com.michlindev.dariointerview.database.DataBaseHelper
 import com.michlindev.dariointerview.databinding.FragmentMovieListBinding
+import com.michlindev.dariointerview.viewmodel.SharedViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -37,7 +39,6 @@ class MovieListFragment : Fragment() {
         super.onCreate(savedInstanceState)
         compositeDisposable = CompositeDisposable()
     }
-
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentMovieListBinding.inflate(inflater, container, false)
@@ -84,7 +85,7 @@ class MovieListFragment : Fragment() {
         //getMovies("love")
 
         //val movieList = arrayListOf<Movie>()
-        binding.recyclerViewList.adapter = MyMovieRecyclerViewAdapter(sharedViewModel.movieList, object : OnItemClickListener {
+        binding.recyclerViewList.adapter = MovieListRecyclerViewAdapter(sharedViewModel.movieList, object : OnItemClickListener {
             override fun onItemClicked(position: Int) {
 
                 val action = MovieListFragmentDirections.actionBlankFragmentAToBlankFragmentB()
@@ -135,7 +136,7 @@ class MovieListFragment : Fragment() {
     private fun getListFromDB() {
         Log.d("DTAG","getListFromDB")
         lifecycleScope.launch {
-            val movies = DataBaseHelper.getAllMoviesFromDB(requireContext())
+            val movies = DataBaseHelper.getAllMoviesFromDB()
             withContext(Dispatchers.Main) {
                 refreshMovieList(movies)
 

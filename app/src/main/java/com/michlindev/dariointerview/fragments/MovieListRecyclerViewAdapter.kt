@@ -1,15 +1,16 @@
-package com.michlindev.dariointerview
+package com.michlindev.dariointerview.fragments
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.michlindev.dariointerview.Movie
 import com.michlindev.dariointerview.databinding.FragmentItemBinding
 
 
-class MyMovieRecyclerViewAdapter(private val values: ArrayList<Movie>, private val itemClickListener: OnItemClickListener) :
-    RecyclerView.Adapter<MyMovieRecyclerViewAdapter.ViewHolder>() {
+class MovieListRecyclerViewAdapter(private val values: ArrayList<Movie>, private val itemClickListener: OnItemClickListener) :
+    RecyclerView.Adapter<MovieListRecyclerViewAdapter.ViewHolder>() {
 
     lateinit var context: Context
 

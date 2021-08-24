@@ -1,4 +1,4 @@
-package com.michlindev.dariointerview
+package com.michlindev.dariointerview.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
+import com.michlindev.dariointerview.viewmodel.SharedViewModel
 import com.michlindev.dariointerview.database.DataBaseHelper
 import com.michlindev.dariointerview.databinding.FragmentSingleMovieBinding
 import kotlinx.coroutines.Dispatchers
@@ -19,20 +20,14 @@ import kotlinx.coroutines.withContext
 
 class SingleMovieFragment : Fragment() {
 
-    private var _binding: FragmentSingleMovieBinding? = null
-    private val binding get() = _binding!!
+    private lateinit var binding: FragmentSingleMovieBinding
+    //private val binding get() = _binding!!
     private lateinit var sharedViewModel: SharedViewModel
 
-    private val args:SingleMovieFragmentArgs by navArgs()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        //setHasOptionsMenu(true)
-
-    }
+    private val args: SingleMovieFragmentArgs by navArgs()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        _binding = FragmentSingleMovieBinding.inflate(inflater, container, false)
+        binding = FragmentSingleMovieBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -46,7 +41,7 @@ class SingleMovieFragment : Fragment() {
         val movie = sharedViewModel.movieList[args.myArg]
 
         lifecycleScope.launch {
-            val dbMovie = DataBaseHelper.getMovieFromDB(requireContext(),movie)
+            val dbMovie = DataBaseHelper.getMovieFromDB(movie)
             if (dbMovie!=null)
                 withContext(Dispatchers.Main) {
                     binding.checkBox.isChecked = true
@@ -67,12 +62,12 @@ class SingleMovieFragment : Fragment() {
             val checkBox = it as CheckBox
             if (checkBox.isChecked){
                 lifecycleScope.launch {
-                    DataBaseHelper.addMovieToDB(requireContext(),movie)
+                    DataBaseHelper.addMovieToDB(movie)
                 }
 
             }else{
                 lifecycleScope.launch {
-                    DataBaseHelper.removeMovieFromDB(requireContext(),movie)
+                    DataBaseHelper.removeMovieFromDB(movie)
                 }
 
             }

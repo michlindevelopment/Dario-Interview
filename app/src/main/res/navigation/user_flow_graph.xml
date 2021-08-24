@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/blankFragmentA"
-        android:name="com.michlindev.dariointerview.MovieListFragment"
+        android:name="com.michlindev.dariointerview.fragments.MovieListFragment"
         android:label="fragment_blank_a"
         tools:layout="@layout/fragment_movie_list" >
         <action
@@ -18,7 +18,7 @@
     </fragment>
     <fragment
         android:id="@+id/blankFragmentB"
-        android:name="com.michlindev.dariointerview.SingleMovieFragment"
+        android:name="com.michlindev.dariointerview.fragments.SingleMovieFragment"
         android:label="fragment_blank_b"
         tools:layout="@layout/fragment_single_movie" >
 
