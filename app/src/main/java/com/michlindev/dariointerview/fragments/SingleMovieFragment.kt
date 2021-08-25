@@ -54,7 +54,7 @@ class SingleMovieFragment : Fragment() {
         binding.textViewMovieType.text = movie.type
         binding.textViewMovieYear.text = movie.year
 
-        //Using Glide to load an imgae
+        //Using Glide to load an image
         Glide.with(requireContext()).load(movie.posterUrl).into(binding.imageViewPoster)
 
         //Open imdb page

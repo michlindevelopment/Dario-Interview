@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -25,6 +24,7 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+
 class MovieListFragment : Fragment() {
 
     companion object {
@@ -120,7 +120,7 @@ class MovieListFragment : Fragment() {
         //Show supportActionBar with menu
         (activity as AppCompatActivity?)?.supportActionBar?.show()
 
-        //When click back from single movie, DB refresh requred in case movie added or removed
+        //When click back from single movie, DB refresh required in case movie added or removed
         when (sharedViewModel.currentState) {
             SharedViewModel.Companion.Selection.SEARCH ->  searchLayoutVisible(true)
             SharedViewModel.Companion.Selection.FAVORITES -> {
