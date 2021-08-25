@@ -15,14 +15,15 @@ class MainActivity : AppCompatActivity() {
     private lateinit var viewModel: SharedViewModel
 
     /*TODO
-    1. Beautify
+    1. Beautify - V
     2. Add folders - V
     3. Bar name - V
-    4. Constants
-    5. Document code
+    4. Constants - V
+    5. Document code - V
     6. Make app icon - V
     7. Clean code
-    8. XML Strings
+    8. XML Strings - V
+    9. Open Imdb - V
     */
 
     override fun onCreate(savedInstanceState: Bundle?) {

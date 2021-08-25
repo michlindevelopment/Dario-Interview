@@ -1,5 +1,7 @@
 package com.michlindev.dariointerview.fragments
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
+import com.michlindev.dariointerview.IMDB_URL
 import com.michlindev.dariointerview.database.DataBaseHelper
 import com.michlindev.dariointerview.databinding.FragmentSingleMovieBinding
 import com.michlindev.dariointerview.viewmodel.SharedViewModel
@@ -53,6 +56,13 @@ class SingleMovieFragment : Fragment() {
 
         //Using Glide to load an imgae
         Glide.with(requireContext()).load(movie.posterUrl).into(binding.imageViewPoster)
+
+        //Open imdb page
+        binding.buttonImdb.setOnClickListener {
+            val site = "$IMDB_URL${movie.imdbID}"
+            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(site))
+            requireContext().startActivity(browserIntent)
+        }
 
         //Preferred option to use 'setOnCheckedChangeListener'. But we need only user interaction monitoring
         binding.checkBox.setOnClickListener {

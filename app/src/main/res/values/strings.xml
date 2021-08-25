@@ -1,16 +1,12 @@
 <resources>
-    <string name="app_name">DarioInterview</string>
+    <string name="app_name">Movies</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_login">LoginActivity</string>
-    <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password</string>
-    <string name="action_sign_in">Sign in or register</string>
-    <string name="action_sign_in_short">Sign in</string>
-    <string name="welcome">"Welcome !"</string>
-    <string name="invalid_username">Not a valid username</string>
-    <string name="invalid_password">Password must be >5 characters</string>
-    <string name="login_failed">"Login failed"</string>
     <string name="search">Search</string>
     <string name="favorites">Favorites</string>
+    <string name="search_hint">Movie name</string>
+    <string name="search_button">Search</string>
+    <string name="imdb_button">IMDB</string>
+    <string name="fav_checkbox">Favorite</string>
+    <string name="menu_search">Search</string>
+    <string name="menu_favorites">Favorites</string>
 </resources>

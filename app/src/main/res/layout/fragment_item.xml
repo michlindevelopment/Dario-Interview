@@ -4,23 +4,29 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:layout_margin="10dp"
-    android:gravity="start|center">
+    android:gravity="start|center"
+    android:layout_marginBottom="10dp"
+    android:layout_marginRight="10dp"
+    android:layout_marginLeft="10dp"
 
+    android:background="@drawable/background_card"
+    android:padding="10dp"
+    android:elevation="12dp">
 
     <ImageView
         android:id="@+id/imageViewMovieIcon"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxHeight="150dp"
+        android:scaleType="fitXY"
         tools:srcCompat="@tools:sample/avatars"
-        android:scaleType="centerCrop"
-        android:contentDescription="TODO" />
+        tools:ignore="ContentDescription" />
 
     <TextView
         android:id="@+id/textViewMovieName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Example"
+        tools:text="Example Movie Name"
         android:textStyle="bold"
         android:layout_marginStart="10dp"
         android:textAppearance="?attr/textAppearanceListItem" />

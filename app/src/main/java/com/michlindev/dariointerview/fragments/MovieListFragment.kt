@@ -1,12 +1,14 @@
 package com.michlindev.dariointerview.fragments
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -23,8 +25,6 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-
-
 class MovieListFragment : Fragment() {
 
     companion object {
@@ -53,13 +53,15 @@ class MovieListFragment : Fragment() {
         sharedViewModel.menuSwitch.observe(viewLifecycleOwner, {
             when (it) {
                 SharedViewModel.Companion.Selection.SEARCH -> {
-                    binding.linearLayoutSearch.visibility = View.VISIBLE
+                    searchLayoutVisible(true)
+
+                    binding.buttonSearch.visibility = View.VISIBLE
                     //Clear list
                     refreshMovieList(null)
 
                 }
                 SharedViewModel.Companion.Selection.FAVORITES -> {
-                    binding.linearLayoutSearch.visibility = View.GONE
+                    searchLayoutVisible(false)
                     getListFromDB()
                 }
             }
@@ -67,6 +69,7 @@ class MovieListFragment : Fragment() {
 
         binding.buttonSearch.setOnClickListener {
             getMovies(binding.editTextSearchField.text.toString())
+            view.hideKeyboard()
         }
 
         binding.recyclerViewList.adapter = MovieListRecyclerViewAdapter(sharedViewModel.movieList, object : OnItemClickListener {
@@ -74,10 +77,17 @@ class MovieListFragment : Fragment() {
 
                 //Single item click, pass position to Single movie fragment
                 val action = MovieListFragmentDirections.actionMovieListItemClick()
-                action.myArg = position
+                action.position = position
                 findNavController().navigate(action)
             }
         })
+    }
+
+    //Setting search field and button
+    private fun searchLayoutVisible(visibility: Boolean) {
+        val v: Int = if (visibility) View.VISIBLE else View.GONE
+        binding.buttonSearch.visibility = v
+        binding.editTextSearchField.visibility = v
     }
 
     private fun getMovies(query: String) {
@@ -111,10 +121,10 @@ class MovieListFragment : Fragment() {
         (activity as AppCompatActivity?)?.supportActionBar?.show()
 
         //When click back from single movie, DB refresh requred in case movie added or removed
-        when (sharedViewModel.currentState){
-            SharedViewModel.Companion.Selection.SEARCH -> binding.linearLayoutSearch.visibility = View.VISIBLE
+        when (sharedViewModel.currentState) {
+            SharedViewModel.Companion.Selection.SEARCH ->  searchLayoutVisible(true)
             SharedViewModel.Companion.Selection.FAVORITES -> {
-                binding.linearLayoutSearch.visibility = View.GONE
+                searchLayoutVisible(false)
                 getListFromDB()
             }
         }
@@ -125,9 +135,14 @@ class MovieListFragment : Fragment() {
             val movies = DataBaseHelper.getAllMoviesFromDB()
             withContext(Dispatchers.Main) {
                 refreshMovieList(movies)
-
             }
         }
+    }
+
+    //Hide keyboard after search
+    private fun View.hideKeyboard() {
+        val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(windowToken, 0)
     }
 
     override fun onStop() {
