@@ -28,12 +28,10 @@ import kotlinx.coroutines.withContext
 class MovieListFragment : Fragment() {
 
     companion object {
-        @JvmStatic
         var compositeDisposable: CompositeDisposable? = null
     }
 
     private lateinit var binding: FragmentMovieListBinding
-
     private lateinit var sharedViewModel: SharedViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -56,7 +54,7 @@ class MovieListFragment : Fragment() {
             when (it) {
                 SharedViewModel.Companion.Selection.SEARCH -> {
                     binding.linearLayoutSearch.visibility = View.VISIBLE
-                    Log.d("DTAG", "Pupu1")
+                    //Clear list
                     refreshMovieList(null)
 
                 }
@@ -71,24 +69,10 @@ class MovieListFragment : Fragment() {
             getMovies(binding.editTextSearchField.text.toString())
         }
 
-        /* binding.editText.addTextChangedListener(object : TextWatcher {
-             override fun afterTextChanged(s: Editable?) {
-                 Log.d("DTAG","Fires?")
-                 getMovies(s.toString())
-             }
-
-             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                 Log.d("DTAG","Fires2?")
-             }
-         })*/
-
-        //getMovies("love")
-
-        //val movieList = arrayListOf<Movie>()
         binding.recyclerViewList.adapter = MovieListRecyclerViewAdapter(sharedViewModel.movieList, object : OnItemClickListener {
             override fun onItemClicked(position: Int) {
 
+                //Single item click, pass position to Single movie fragment
                 val action = MovieListFragmentDirections.actionMovieListItemClick()
                 action.myArg = position
                 findNavController().navigate(action)
@@ -97,7 +81,6 @@ class MovieListFragment : Fragment() {
     }
 
     private fun getMovies(query: String) {
-
         compositeDisposable?.clear()
         compositeDisposable?.add(
             ApiClient.getClient.search(query)
@@ -107,13 +90,14 @@ class MovieListFragment : Fragment() {
         )
     }
 
-
+    //Handle compositeDisposable response
     private fun handleResponse(resultObject: ObjectsCast) {
         if (resultObject.response) {
             refreshMovieList(resultObject.searchResult)
         }
     }
 
+    //Refresh movies
     @SuppressLint("NotifyDataSetChanged")
     private fun refreshMovieList(searchResult: List<Movie>?) {
         sharedViewModel.movieList.clear()
@@ -123,8 +107,10 @@ class MovieListFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
+        //Show supportActionBar with menu
         (activity as AppCompatActivity?)?.supportActionBar?.show()
 
+        //When click back from single movie, DB refresh requred in case movie added or removed
         when (sharedViewModel.currentState){
             SharedViewModel.Companion.Selection.SEARCH -> binding.linearLayoutSearch.visibility = View.VISIBLE
             SharedViewModel.Companion.Selection.FAVORITES -> {
@@ -135,7 +121,6 @@ class MovieListFragment : Fragment() {
     }
 
     private fun getListFromDB() {
-        Log.d("DTAG","getListFromDB")
         lifecycleScope.launch {
             val movies = DataBaseHelper.getAllMoviesFromDB()
             withContext(Dispatchers.Main) {
@@ -147,6 +132,7 @@ class MovieListFragment : Fragment() {
 
     override fun onStop() {
         super.onStop()
+        //Hide supportActionBar with menu
         (activity as AppCompatActivity?)?.supportActionBar?.hide()
     }
 

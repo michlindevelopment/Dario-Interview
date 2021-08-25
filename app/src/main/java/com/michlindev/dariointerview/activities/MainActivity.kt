@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
     2. Add folders - V
     3. Bar name - V
     4. Constants
-    5. Comment code
+    5. Document code
     6. Make app icon - V
     7. Clean code
     8. XML Strings
@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle item selection
+        // Handle item selection, set current state
         return when (item.itemId) {
             R.id.menu_search -> {
                 viewModel.setMenu(SharedViewModel.Companion.Selection.SEARCH)

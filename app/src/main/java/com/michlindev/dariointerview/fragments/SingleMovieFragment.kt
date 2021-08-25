@@ -21,7 +21,6 @@ import kotlinx.coroutines.withContext
 class SingleMovieFragment : Fragment() {
 
     private lateinit var binding: FragmentSingleMovieBinding
-    //private val binding get() = _binding!!
     private lateinit var sharedViewModel: SharedViewModel
 
     private val args: SingleMovieFragmentArgs by navArgs()
@@ -36,25 +35,24 @@ class SingleMovieFragment : Fragment() {
 
         sharedViewModel = ViewModelProvider(requireActivity()).get(SharedViewModel::class.java)
 
+        //Retrieve the position via args and get the selected movie from sharedViewModel
+        val movie = sharedViewModel.movieList[args.position]
 
-
-        val movie = sharedViewModel.movieList[args.myArg]
-
+        //Check if movie in favorites
         lifecycleScope.launch {
             val dbMovie = DataBaseHelper.getMovieFromDB(movie)
             if (dbMovie!=null)
                 withContext(Dispatchers.Main) {
                     binding.checkBox.isChecked = true
                 }
-
         }
 
         binding.textViewMovieTitle.text = movie.title
         binding.textViewMovieType.text = movie.type
         binding.textViewMovieYear.text = movie.year
 
+        //Using Glide to load an imgae
         Glide.with(requireContext()).load(movie.posterUrl).into(binding.imageViewPoster)
-
 
         //Preferred option to use 'setOnCheckedChangeListener'. But we need only user interaction monitoring
         binding.checkBox.setOnClickListener {
@@ -73,8 +71,5 @@ class SingleMovieFragment : Fragment() {
             }
         }
     }
-
-
-
 }
 

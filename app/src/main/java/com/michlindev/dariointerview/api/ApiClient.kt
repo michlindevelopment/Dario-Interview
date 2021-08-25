@@ -7,6 +7,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object ApiClient {
 
+    //Retrofit API client
     val getClient: ApiService
         get() {
             val retrofit = Retrofit.Builder()

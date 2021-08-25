@@ -22,7 +22,7 @@
         android:label="fragment_single_movie"
         tools:layout="@layout/fragment_single_movie" >
         <argument
-            android:name="myArg"
+            android:name="position"
             app:argType="integer"
             android:defaultValue="-1" />
     </fragment>

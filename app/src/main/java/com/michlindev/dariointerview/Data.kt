@@ -5,6 +5,7 @@ import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
+//Object from API
 data class ObjectsCast(
     var totalResults: Int,
     @SerializedName("Response") var response: Boolean,
@@ -12,6 +13,7 @@ data class ObjectsCast(
 ) : Serializable
 
 
+//Single movie from API (Used for RXJava and Room DB)
 @Entity
 data class Movie(
     @PrimaryKey @SerializedName("imdbID") var imdbID: String,

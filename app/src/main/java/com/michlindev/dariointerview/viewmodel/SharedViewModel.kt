@@ -16,6 +16,7 @@ class SharedViewModel : ViewModel() {
     var menuSwitch = SingleLiveEvent<Selection>()
     var currentState = Selection.SEARCH
 
+    //Update menu switch by single event and set current state
     fun setMenu(state: Selection) {
         menuSwitch.postValue(state)
         currentState = state

@@ -10,6 +10,7 @@ import retrofit2.http.Query
 
 interface ApiService {
 
+    //Search query
     @GET("$API_KEY_REQUEST$API_KEY")
     fun search(@Query("s") keyword: String?): Observable<ObjectsCast>
 

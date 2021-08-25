@@ -39,6 +39,7 @@ class MovieListRecyclerViewAdapter(private val values: ArrayList<Movie>, private
     }
 }
 
+//Click on single item
 interface OnItemClickListener {
     fun onItemClicked(position: Int)
 }
