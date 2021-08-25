@@ -13,7 +13,7 @@ data class ObjectsCast(
 ) : Serializable
 
 
-//Single movie from API (Used for RXJava and Room DB)
+//Single movie from API (Used for Retrofit and Room DB)
 @Entity
 data class Movie(
     @PrimaryKey @SerializedName("imdbID") var imdbID: String,

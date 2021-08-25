@@ -30,6 +30,7 @@ class MovieListRecyclerViewAdapter(private val values: ArrayList<Movie>, private
     class ViewHolder(private val itemBinding: FragmentItemBinding) : RecyclerView.ViewHolder(itemBinding.root) {
         fun bind(movie: Movie, position: Int, context:Context, clickListener: OnItemClickListener) {
 
+            //Load image with glide
             Glide.with(context).load(movie.posterUrl).into(itemBinding.imageViewMovieIcon)
             itemBinding.textViewMovieName.text = movie.title
             itemView.setOnClickListener {
