@@ -49,16 +49,13 @@ class MovieListFragment : Fragment() {
 
         sharedViewModel = ViewModelProvider(requireActivity()).get(SharedViewModel::class.java)
 
-        //Observing menu switch (triggered only once using SingleLiveEvent)
+        //Observing menu switch
         sharedViewModel.menuSwitch.observe(viewLifecycleOwner, {
             when (it) {
                 SharedViewModel.Companion.Selection.SEARCH -> {
                     searchLayoutVisible(true)
-
-                    binding.buttonSearch.visibility = View.VISIBLE
                     //Clear list
                     refreshMovieList(null)
-
                 }
                 SharedViewModel.Companion.Selection.FAVORITES -> {
                     searchLayoutVisible(false)
@@ -119,15 +116,6 @@ class MovieListFragment : Fragment() {
         super.onResume()
         //Show supportActionBar with menu
         (activity as AppCompatActivity?)?.supportActionBar?.show()
-
-        //When click back from single movie, DB refresh required in case movie added or removed
-        when (sharedViewModel.currentState) {
-            SharedViewModel.Companion.Selection.SEARCH ->  searchLayoutVisible(true)
-            SharedViewModel.Companion.Selection.FAVORITES -> {
-                searchLayoutVisible(false)
-                getListFromDB()
-            }
-        }
     }
 
     private fun getListFromDB() {
@@ -150,6 +138,4 @@ class MovieListFragment : Fragment() {
         //Hide supportActionBar with menu
         (activity as AppCompatActivity?)?.supportActionBar?.hide()
     }
-
-
 }

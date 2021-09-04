@@ -1,5 +1,6 @@
 package com.michlindev.dariointerview.viewmodel
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.michlindev.dariointerview.Movie
 
@@ -13,12 +14,10 @@ class SharedViewModel : ViewModel() {
     }
 
     var movieList = ArrayList<Movie>()
-    var menuSwitch = SingleLiveEvent<Selection>()
-    var currentState = Selection.SEARCH
+    var menuSwitch = MutableLiveData(Selection.SEARCH)
 
-    //Update menu switch by single event and set current state
+    //Update menu switch and set current state
     fun setMenu(state: Selection) {
         menuSwitch.postValue(state)
-        currentState = state
     }
 }
